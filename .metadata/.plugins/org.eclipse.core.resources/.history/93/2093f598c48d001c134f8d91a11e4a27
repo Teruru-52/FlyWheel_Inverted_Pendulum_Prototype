@@ -28,7 +28,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-MPU6500 mpu;
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -70,16 +70,7 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int count = 0;
-extern offset_flag;
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-	if (htim == &htim1) {
-		count= (count + 1) % 16;
-		if(count == 0 && offset_flag == true){
-			mpu.Get_MPU6500_Data();
-		}
-	}
-  }
+
 /* USER CODE END 0 */
 
 /**
@@ -117,8 +108,7 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  mpu.MPU6500_Init();
-  mpu.MPU6500_OffsetCalc();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */

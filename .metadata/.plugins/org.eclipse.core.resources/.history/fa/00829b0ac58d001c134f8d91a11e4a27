@@ -28,7 +28,8 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-MPU6500 mpu;
+MPU6500 mpu1;
+MPU6500 mpu2;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/

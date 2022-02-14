@@ -71,11 +71,10 @@ static void MX_USART1_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 int count = 0;
-extern offset_flag;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	if (htim == &htim1) {
 		count= (count + 1) % 16;
-		if(count == 0 && offset_flag == true){
+		if(count == 0){
 			mpu.Get_MPU6500_Data();
 		}
 	}

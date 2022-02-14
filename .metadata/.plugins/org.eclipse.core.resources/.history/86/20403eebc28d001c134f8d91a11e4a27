@@ -52,9 +52,10 @@ void MPU6500::MPU6500_Init() {
 }
 
 void MPU6500::MPU6500_OffsetCalc() {
-	offset_flag = false;
 	int16_t ax_raw, ay_raw, az_raw;
 	int16_t gx_raw, gy_raw, gz_raw;
+	float ax, ay, az;
+	float gx, gy, gz;
 	float ax_sum = 0;
 	float ay_sum = 0;
 	float az_sum = 0;
@@ -104,40 +105,31 @@ void MPU6500::MPU6500_OffsetCalc() {
 	gx_offset = gx_sum / 1000.0;
 	gy_offset = gy_sum / 1000.0;
 	gz_offset = gz_sum / 1000.0;
-
-	offset_flag = true;
 }
 
 void MPU6500::Get_MPU6500_Data() {
 	int16_t ax_raw, ay_raw, az_raw;
 	int16_t gx_raw, gy_raw, gz_raw;
+	float ax, ay, az;
+	float gx, gy, gz;
 
 	// H:8bit shift, Link h and l
-	ax_raw = (int16_t)(
-			(uint16_t)(read_byte(ACCEL_XOUT_H) << 8)
-					| (uint16_t) read_byte(ACCEL_XOUT_L));
-	ay_raw = (int16_t)(
-			(uint16_t)(read_byte(ACCEL_YOUT_H) << 8)
-					| (uint16_t) read_byte(ACCEL_YOUT_L));
-	az_raw = (int16_t)(
-			(uint16_t)(read_byte(ACCEL_ZOUT_H) << 8)
-					| (uint16_t) read_byte(ACCEL_ZOUT_L));
-	gx_raw = (int16_t)(
-			(uint16_t)(read_byte(GYRO_XOUT_H) << 8)
-					| (uint16_t) read_byte(GYRO_XOUT_L));
-	gy_raw = (int16_t)(
-			(uint16_t)(read_byte(GYRO_YOUT_H) << 8)
-					| (uint16_t) read_byte(GYRO_YOUT_L));
 	gz_raw = (int16_t)(
 			(uint16_t)(read_byte(GYRO_ZOUT_H) << 8)
 					| (uint16_t) read_byte(GYRO_ZOUT_L));
+	// printf("%d\r\n", gz_raw);
+	gz = (float) (gz_raw / GYRO_FACTOR) - gyro->offset; // dps to deg/sec
 
-	ax = (float) (ax_raw / ACCEL_FACTOR) - ax_offset;
-	ay = (float) (ay_raw / ACCEL_FACTOR) - ay_offset;
-	az = (float) (az_raw / ACCEL_FACTOR) - az_offset;
-	gx = (float) (gx_raw / GYRO_FACTOR) - gx_offset;
-	gy = (float) (gy_raw / GYRO_FACTOR) - gy_offset;
-	gz = (float) (gz_raw / GYRO_FACTOR) - gz_offset;
+	// Shift IIR filter state
+	for (int i = 1; i > 0; i--) {
+		gyro_x_pre[i] = gyro_x_pre[i - 1];
+		gyro_y_pre[i] = gyro_y_pre[i - 1];
+	}
+	gyro_x_pre[0] = gz;
+	gyro_y_pre[0] = filtered_gyro_z;
 
-	printf("%f, %f, %f, %f, %f, %f \r\n", ax, ay, az, gx, gy, gz);
+	gyro->gz = filtered_gyro_z; //filter
+	// gyro->gz = gz;  // nonfilter
+	yaw += gyro->gz * 0.001;
+	gyro->yaw = yaw;
 }

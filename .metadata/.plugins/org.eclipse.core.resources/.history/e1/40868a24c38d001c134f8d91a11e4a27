@@ -52,7 +52,6 @@ void MPU6500::MPU6500_Init() {
 }
 
 void MPU6500::MPU6500_OffsetCalc() {
-	offset_flag = false;
 	int16_t ax_raw, ay_raw, az_raw;
 	int16_t gx_raw, gy_raw, gz_raw;
 	float ax_sum = 0;
@@ -104,13 +103,13 @@ void MPU6500::MPU6500_OffsetCalc() {
 	gx_offset = gx_sum / 1000.0;
 	gy_offset = gy_sum / 1000.0;
 	gz_offset = gz_sum / 1000.0;
-
-	offset_flag = true;
 }
 
 void MPU6500::Get_MPU6500_Data() {
 	int16_t ax_raw, ay_raw, az_raw;
 	int16_t gx_raw, gy_raw, gz_raw;
+	float ax, ay, az;
+	float gx, gy, gz;
 
 	// H:8bit shift, Link h and l
 	ax_raw = (int16_t)(
@@ -132,12 +131,9 @@ void MPU6500::Get_MPU6500_Data() {
 			(uint16_t)(read_byte(GYRO_ZOUT_H) << 8)
 					| (uint16_t) read_byte(GYRO_ZOUT_L));
 
-	ax = (float) (ax_raw / ACCEL_FACTOR) - ax_offset;
-	ay = (float) (ay_raw / ACCEL_FACTOR) - ay_offset;
-	az = (float) (az_raw / ACCEL_FACTOR) - az_offset;
-	gx = (float) (gx_raw / GYRO_FACTOR) - gx_offset;
-	gy = (float) (gy_raw / GYRO_FACTOR) - gy_offset;
-	gz = (float) (gz_raw / GYRO_FACTOR) - gz_offset;
+	gz = (float) (gz_raw / GYRO_FACTOR) - gx_offset;
 
-	printf("%f, %f, %f, %f, %f, %f \r\n", ax, ay, az, gx, gy, gz);
+	// gyro->gz = gz;  // nonfilter
+	yaw += gyro->gz * 0.001;
+	gyro->yaw = yaw;
 }
