@@ -1,0 +1,21 @@
+!SESSION 2022-02-15 02:12:11.260 -----------------------------------------------
+eclipse.buildId=Version 1.6.1
+java.version=11.0.9.1
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ja_JP
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2022-02-15 02:12:51.367
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2022-02-15 02:12:51.477
+!MESSAGE Log4j initialized with config file C:\Users\reiji\Documents\Research\Flywheel_Inverted_Pendulum_Prototype\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2022-02-15 02:12:55.457
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 4 4 2022-02-15 02:12:56.309
+!MESSAGE com.st.stm32cube.ide.mcu.ide/META-INF/version/build_ref file not found, build reference will not be reported into properties
+
+!ENTRY org.eclipse.cdt.core 1 0 2022-02-15 02:19:31.716
+!MESSAGE Indexed 'NUCLEO-F303K8' (23 sources, 83 headers) in 3.74 sec: 5,340 declarations; 29,286 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0058%)
