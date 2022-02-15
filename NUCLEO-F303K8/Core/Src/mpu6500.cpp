@@ -1,4 +1,5 @@
 #include "mpu6500.hpp"
+extern SPI_HandleTypeDef hspi1;
 
 uint8_t MPU6500::read_byte(uint8_t reg) {
 	uint8_t rx_data[2];
@@ -7,9 +8,9 @@ uint8_t MPU6500::read_byte(uint8_t reg) {
 	tx_data[0] = reg | 0x80;
 	tx_data[1] = 0x00;  // dummy
 
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, RESET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
 	HAL_SPI_TransmitReceive(&hspi1, tx_data, rx_data, 2, 1);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 
 	return rx_data[1];
 }
@@ -22,9 +23,9 @@ void MPU6500::write_byte(uint8_t reg, uint8_t data) {
 //   tx_data[0] = reg | 0x00;
 	tx_data[1] = data;  // write data
 
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, RESET); //CSピン立ち下げ
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET); //CSピン立ち下げ
 	HAL_SPI_TransmitReceive(&hspi1, tx_data, rx_data, 2, 1);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, SET); //CSピン立ち上げ
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET); //CSピン立ち上げ
 }
 
 void MPU6500::MPU6500_Init() {
@@ -48,6 +49,8 @@ void MPU6500::MPU6500_Init() {
 	write_byte(CONFIG, 0x00); // set config (FSYNCはNC)
 	HAL_Delay(50);
 	write_byte(GYRO_CONFIG, 0x18); // set gyro config (2000dps)
+	HAL_Delay(50);
+	write_byte(ACCEL_CONFIG, 0x00); // set accel config (2g)
 	HAL_Delay(50);
 }
 

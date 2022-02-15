@@ -1,0 +1,10 @@
+03:54:33 **** Incremental Build of configuration Debug for project NUCLEO-F303K8 ****
+make -j4 all 
+arm-none-eabi-size   NUCLEO-F303K8.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33616	    484	   2172	  36272	   8db0	NUCLEO-F303K8.elf
+Finished building: default.size.stdout
+ 
+
+03:54:33 Build Finished. 0 errors, 0 warnings. (took 371ms)
+

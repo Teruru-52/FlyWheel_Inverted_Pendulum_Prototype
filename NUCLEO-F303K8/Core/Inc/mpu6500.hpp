@@ -1,5 +1,6 @@
 #ifndef _MPU6500_HPP_
 #define _MPU6500_HPP_
+#include "main.h"
 
 #define ADDRESS           0x68
 #define WHO_AM_I          0x75
@@ -24,7 +25,7 @@
 #define GYRO_ZOUT_L       0x48
 
 #define GYRO_FACTOR       16.4
-#define ACCEL_FACTOR	  1.0
+#define ACCEL_FACTOR	  16384.0
 
 class MPU6500 {
 private:
