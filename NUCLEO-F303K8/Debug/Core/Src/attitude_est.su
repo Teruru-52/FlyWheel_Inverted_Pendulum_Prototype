@@ -1,0 +1,7 @@
+cmath:125:3:constexpr float std::atan(float)	16	static
+gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
+attitude_est.cpp:3:1:Attitude::Attitude()	16	static
+attitude_est.cpp:7:6:void Attitude::Init()	16	static
+attitude_est.cpp:25:22:std::array<float, 2> Attitude::GetEstAttitude()	48	static
+array:185:7:std::array<_Tp, _Nm>::value_type& std::array<_Tp, _Nm>::operator[](std::array<_Tp, _Nm>::size_type) [with _Tp = float; unsigned int _Nm = 2]	16	static
+array:55:7:static constexpr _Tp& std::__array_traits<_Tp, _Nm>::_S_ref(const _Tp (&)[_Nm], std::size_t) [with _Tp = float; unsigned int _Nm = 2]	16	static

@@ -1,0 +1,20 @@
+#include "attitude_est.hpp"
+
+Attitude::Attitude() :
+		mpu1(1), mpu2(2) {
+}
+
+void Attitude::Init(){
+	kalman.setAngle(theta_b);
+}
+
+std::array<float, 2> Attitude::GetEstAttitude(){
+	mx = mpu1.az - mu * mpu2.az;
+	my = mpu1.ay - mu * mpu2.ay;
+	theta_b = atan(- mx / my);
+	dot_theta_b = 0.5 * (mpu1.gx + mpu2.gx);
+	est_attitude[0] = kalman.getAngle(theta_b, dot_theta_b, 0.01);
+	est_attitude[1] = kalman.getRate();
+
+	return est_attitude;
+}

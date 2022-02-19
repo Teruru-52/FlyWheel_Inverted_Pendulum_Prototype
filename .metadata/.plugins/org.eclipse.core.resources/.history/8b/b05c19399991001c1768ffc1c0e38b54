@@ -1,0 +1,5 @@
+#ifndef _ATTITDE_EST_HPP_
+#define _ATTITDE_EST_HPP_
+#include "main.h"
+
+#endif // _ATTITDE_EST_HPP_

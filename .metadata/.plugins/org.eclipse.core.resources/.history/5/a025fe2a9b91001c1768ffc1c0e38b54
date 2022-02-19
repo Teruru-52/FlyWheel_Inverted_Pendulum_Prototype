@@ -1,0 +1,7 @@
+#include "attitude_est.hpp"
+
+Attitude::Attitude() :
+		mpu1(1), mpu2(2) {
+}
+
+

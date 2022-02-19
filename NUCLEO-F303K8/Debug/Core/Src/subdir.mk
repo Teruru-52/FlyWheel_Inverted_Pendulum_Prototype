@@ -12,6 +12,8 @@ C_SRCS += \
 ../Core/Src/system_stm32f3xx.c 
 
 CPP_SRCS += \
+../Core/Src/attitude_est.cpp \
+../Core/Src/kalman.cpp \
 ../Core/Src/main.cpp \
 ../Core/Src/mpu6500.cpp 
 
@@ -23,6 +25,8 @@ C_DEPS += \
 ./Core/Src/system_stm32f3xx.d 
 
 OBJS += \
+./Core/Src/attitude_est.o \
+./Core/Src/kalman.o \
 ./Core/Src/main.o \
 ./Core/Src/mpu6500.o \
 ./Core/Src/stm32f3xx_hal_msp.o \
@@ -32,11 +36,17 @@ OBJS += \
 ./Core/Src/system_stm32f3xx.o 
 
 CPP_DEPS += \
+./Core/Src/attitude_est.d \
+./Core/Src/kalman.d \
 ./Core/Src/main.d \
 ./Core/Src/mpu6500.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
+Core/Src/attitude_est.o: ../Core/Src/attitude_est.cpp Core/Src/subdir.mk
+	arm-none-eabi-g++ "$<" -mcpu=cortex-m4 -std=gnu++14 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303x8 -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -MMD -MP -MF"Core/Src/attitude_est.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+Core/Src/kalman.o: ../Core/Src/kalman.cpp Core/Src/subdir.mk
+	arm-none-eabi-g++ "$<" -mcpu=cortex-m4 -std=gnu++14 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303x8 -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -MMD -MP -MF"Core/Src/kalman.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Core/Src/main.o: ../Core/Src/main.cpp Core/Src/subdir.mk
 	arm-none-eabi-g++ "$<" -mcpu=cortex-m4 -std=gnu++14 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303x8 -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Core/Src/mpu6500.o: ../Core/Src/mpu6500.cpp Core/Src/subdir.mk

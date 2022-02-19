@@ -1,0 +1,19 @@
+#ifndef _ATTITDE_EST_HPP_
+#define _ATTITDE_EST_HPP_
+#include "main.h"
+
+class Attitude{
+private:
+	Kalman kalman;
+	MPU6500 mpu1;
+	MPU6500 mpu2;
+
+	float mu = 9.0;
+	float mx, my;
+public:
+	Attitude();
+	std::array<float, 2> GetEstAttitude();
+
+};
+
+#endif // _ATTITDE_EST_HPP_

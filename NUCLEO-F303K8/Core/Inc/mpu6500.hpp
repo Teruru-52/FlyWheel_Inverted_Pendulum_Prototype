@@ -29,16 +29,18 @@
 
 class MPU6500 {
 private:
-	float ax, ay, az;
-	float gx, gy, gz;
+	int cs;
 	float ax_offset, ay_offset, az_offset;
 	float gx_offset, gy_offset, gz_offset;
 
 public:
-	bool offset_flag;
+	MPU6500(int cs);
 
-	uint8_t read_byte(uint8_t reg);
-	void write_byte(uint8_t reg, uint8_t data);
+	float ax, ay, az;
+	float gx, gy, gz;
+
+	uint8_t read_byte(uint8_t reg, int cs);
+	void write_byte(uint8_t reg, uint8_t data, int cs);
 	void MPU6500_Init();
 	void MPU6500_OffsetCalc();
 	void Get_MPU6500_Data();

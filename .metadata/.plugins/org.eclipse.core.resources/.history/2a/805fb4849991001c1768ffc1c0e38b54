@@ -1,0 +1,4 @@
+#include "attitude_est.hpp"
+
+Attitude::Attitude()
+:
