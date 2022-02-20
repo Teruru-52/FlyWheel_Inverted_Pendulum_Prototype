@@ -30,12 +30,14 @@
 #include <time.h>
 #include <sys/time.h>
 #include <sys/times.h>
+#include "main.h"
 
 
 /* Variables */
 extern int __io_putchar(int ch) __attribute__((weak));
 extern int __io_getchar(void) __attribute__((weak));
 
+extern UART_HandleTypeDef huart2;
 
 char *__env[1] = { 0 };
 char **environ = __env;
@@ -75,16 +77,16 @@ __attribute__((weak)) int _read(int file, char *ptr, int len)
 return len;
 }
 
-__attribute__((weak)) int _write(int file, char *ptr, int len)
-{
-	int DataIdx;
-
-	for (DataIdx = 0; DataIdx < len; DataIdx++)
-	{
-		__io_putchar(*ptr++);
-	}
-	return len;
-}
+//__attribute__((weak)) int _write(int file, char *ptr, int len)
+//{
+//	int DataIdx;
+//
+//	for (DataIdx = 0; DataIdx < len; DataIdx++)
+//	{
+//		__io_putchar(*ptr++);
+//	}
+//	return len;
+//}
 
 int _close(int file)
 {
@@ -153,4 +155,9 @@ int _execve(char *name, char **argv, char **env)
 {
 	errno = ENOMEM;
 	return -1;
+}
+
+int _write(int file, char *ptr, int len) {
+	HAL_UART_Transmit(&huart2, (uint8_t*) ptr, len, 10);
+	return len;
 }

@@ -65,17 +65,11 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int _write(int file, char *ptr, int len) {
-	HAL_UART_Transmit(&huart2, (uint8_t*) ptr, len, 10);
-	return len;
-}
-
 int count = 0;
 int led_count = 0;
 //extern "C" bool init_flag;
 bool init_flag = false;
 std::array<float, 2> est_data;
-char msg[] = "Hello STM32\r\n";
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	if (htim == &htim3) {
@@ -86,15 +80,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 				led_count = (led_count + 1) % 100;
 			}
 			if (led_count == 0) {
-//			HAL_UART_Transmit(&huart2, (uint8_t*) msg, sizeof(msg), 3000);
 				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET);
+				printf("%f \r\n", est_data[0]);
 			} else {
 				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET);
 			}
-
-//			if (led_count % 50 == 0) {
-//				printf("%f, \r\n", est_data[0]);
-//			}
 		}
 	}
 }
@@ -135,15 +125,15 @@ int main(void) {
 	HAL_TIM_Base_Start_IT(&htim3);
 	att.Init();
 	init_flag = true;
+	printf("Init finish \r\n");
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	while (1) {
 		/* USER CODE END WHILE */
-//		HAL_UART_Transmit(&huart2, (uint8_t*) msg, sizeof(msg), 3000);
-//		printf("Hello World!!\r\n");
-//		HAL_Delay(1000);
+		//		printf("Hello World!!\r\n");
+		//		HAL_Delay(1000);
 		/* USER CODE BEGIN 3 */
 	}
 	/* USER CODE END 3 */
@@ -266,7 +256,7 @@ static void MX_SPI1_Init(void) {
 	hspi1.Instance = SPI1;
 	hspi1.Init.Mode = SPI_MODE_MASTER;
 	hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-	hspi1.Init.DataSize = SPI_DATASIZE_4BIT;
+	hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
 	hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
 	hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
 	hspi1.Init.NSS = SPI_NSS_SOFT;

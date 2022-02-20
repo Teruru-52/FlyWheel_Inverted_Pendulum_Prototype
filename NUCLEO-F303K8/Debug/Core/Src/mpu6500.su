@@ -2,5 +2,5 @@ mpu6500.cpp:5:1:MPU6500::MPU6500(int)	16	static
 mpu6500.cpp:8:9:uint8_t MPU6500::read_byte(uint8_t, int)	40	static
 mpu6500.cpp:28:6:void MPU6500::write_byte(uint8_t, uint8_t, int)	40	static
 mpu6500.cpp:47:6:void MPU6500::MPU6500_Init()	24	static
-mpu6500.cpp:77:6:void MPU6500::MPU6500_OffsetCalc()	64	static
-mpu6500.cpp:125:6:void MPU6500::Get_MPU6500_Data()	40	static
+mpu6500.cpp:74:6:void MPU6500::MPU6500_OffsetCalc()	64	static
+mpu6500.cpp:115:6:void MPU6500::Get_MPU6500_Data()	40	static

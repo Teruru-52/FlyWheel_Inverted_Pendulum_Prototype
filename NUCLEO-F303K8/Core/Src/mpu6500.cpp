@@ -50,10 +50,14 @@ void MPU6500::MPU6500_Init() {
 	HAL_Delay(100);             // wait start up
 	who_am_i = read_byte(WHO_AM_I, cs); // read who am i
 	printf("who_am_i_%d = 0x%x\r\n", cs, who_am_i); // check who am i value
-	HAL_UART_Transmit(&huart2, (uint8_t*) who_am_i, sizeof(who_am_i), 3000);
+//	HAL_UART_Transmit(&huart2, (uint8_t*) who_am_i, sizeof(who_am_i), 3000);
 	HAL_Delay(10);
+	who_am_i = read_byte(WHO_AM_I, cs); // read who am i
+		printf("who_am_i_%d = 0x%x\r\n", cs, who_am_i); // check who am i value
+	//	HAL_UART_Transmit(&huart2, (uint8_t*) who_am_i, sizeof(who_am_i), 3000);
+		HAL_Delay(10);
 	if (who_am_i != 0x70) {
-		printf("mpu6500_%d error", cs);
+		printf("mpu6500_%d error \r\n", cs);
 	}
 
 	HAL_Delay(50);
@@ -92,19 +96,12 @@ void MPU6500::MPU6500_OffsetCalc() {
 		gz_raw = (int16_t) ((uint16_t) (read_byte(GYRO_ZOUT_H, cs) << 8)
 				| (uint16_t) read_byte(GYRO_ZOUT_L, cs));
 
-		ax = (float) (ax_raw / ACCEL_FACTOR);
-		ay = (float) (ay_raw / ACCEL_FACTOR);
-		az = (float) (az_raw / ACCEL_FACTOR);
-		gx = (float) (gx_raw / GYRO_FACTOR); // dps to deg/sec
-		gy = (float) (gy_raw / GYRO_FACTOR);
-		gz = (float) (gz_raw / GYRO_FACTOR);
-
-		ax_sum += ax;
-		ay_sum += ay;
-		az_sum += az;
-		gx_sum += gx;
-		gy_sum += gy;
-		gz_sum += gz;
+		ax_sum += (float) (ax_raw / ACCEL_FACTOR);
+		ay_sum += (float) (ay_raw / ACCEL_FACTOR);
+		az_sum += (float) (az_raw / ACCEL_FACTOR);
+		gx_sum += (float) (gx_raw / GYRO_FACTOR); // dps to deg/sec
+		gy_sum += (float) (gy_raw / GYRO_FACTOR);
+		gz_sum += (float) (gz_raw / GYRO_FACTOR);
 		HAL_Delay(1);
 	}
 	ax_offset = ax_sum / 1000.0;

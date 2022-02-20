@@ -29,13 +29,13 @@
 
 class MPU6500 {
 private:
-	int cs;
 	float ax_offset, ay_offset, az_offset;
 	float gx_offset, gy_offset, gz_offset;
 
 public:
 	MPU6500(int cs);
 
+	int cs;
 	float ax, ay, az;
 	float gx, gy, gz;
 

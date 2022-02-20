@@ -30,8 +30,10 @@ std::array<float, 2> Attitude::GetEstAttitude() {
 	my = mpu1.ay - mu * mpu2.ay;
 	theta_b = atan(-mx / my);
 	dot_theta_b = 0.5 * (mpu1.gx + mpu2.gx);
-	est_attitude[0] = kalman.getAngle(theta_b, dot_theta_b, 0.01);
-	est_attitude[1] = kalman.getRate();
+//	est_attitude[0] = kalman.getAngle(theta_b, dot_theta_b, 0.01);
+//	est_attitude[1] = kalman.getRate();
+	est_attitude[0] = mpu1.az;
+	est_attitude[1] = mpu2.az;
 
 	return est_attitude;
 }
