@@ -1,14 +1,13 @@
 gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
-main.cpp:74:6:void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef*)	16	static
-main.cpp:97:5:int main()	8	static
-main.cpp:146:6:void SystemClock_Config()	96	static
-main.cpp:187:13:void MX_ADC1_Init()	48	static
-main.cpp:246:13:void MX_SPI1_Init()	8	static
-main.cpp:284:13:void MX_TIM3_Init()	40	static
-main.cpp:326:13:void MX_USART2_UART_Init()	8	static
-main.cpp:359:13:void MX_GPIO_Init()	40	static
-main.cpp:397:6:void Error_Handler()	4	static,ignoring_inline_asm
+main.cpp:71:6:void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef*)	16	static
+main.cpp:94:5:int main()	8	static
+main.cpp:142:6:void SystemClock_Config()	72	static
+main.cpp:177:13:void MX_SPI1_Init()	8	static
+main.cpp:215:13:void MX_TIM3_Init()	40	static
+main.cpp:257:13:void MX_USART2_UART_Init()	8	static
+main.cpp:290:13:void MX_GPIO_Init()	40	static
+main.cpp:328:6:void Error_Handler()	4	static,ignoring_inline_asm
 array:185:7:std::array<_Tp, _Nm>::value_type& std::array<_Tp, _Nm>::operator[](std::array<_Tp, _Nm>::size_type) [with _Tp = float; unsigned int _Nm = 2]	16	static
 array:55:7:static constexpr _Tp& std::__array_traits<_Tp, _Nm>::_S_ref(const _Tp (&)[_Nm], std::size_t) [with _Tp = float; unsigned int _Nm = 2]	16	static
-main.cpp:404:1:void __static_initialization_and_destruction_0(int, int)	16	static
-main.cpp:404:1:cpp)	8	static
+main.cpp:335:1:void __static_initialization_and_destruction_0(int, int)	16	static
+main.cpp:335:1:cpp)	8	static

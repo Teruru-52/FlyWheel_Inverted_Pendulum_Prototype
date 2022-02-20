@@ -75,12 +75,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 			if (count == 0) { // time interruption 100Hz
 				est_data = att.GetEstAttitude();
 				led_count = (led_count + 1) % 100;
-				if (led_count == 0) {
-					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET);
-					printf("%f \r\n", est_data[0]);
-				} else {
-					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET);
-				}
+			}
+			if (led_count == 0) {
+				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET);
+				printf("%f \r\n", est_data[0]);
+			} else {
+				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET);
 			}
 		}
 	}
@@ -93,6 +93,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
  */
 int main(void) {
 	/* USER CODE BEGIN 1 */
+	setbuf(stdout, NULL);
 	/* USER CODE END 1 */
 
 	/* MCU Configuration--------------------------------------------------------*/
@@ -118,7 +119,6 @@ int main(void) {
 	MX_USART2_UART_Init();
 	/* USER CODE BEGIN 2 */
 	HAL_TIM_Base_Start_IT(&htim3);
-	setbuf(stdout, NULL);
 	att.Init();
 	init_flag = true;
 	printf("Init finish \r\n");
@@ -128,6 +128,8 @@ int main(void) {
 	/* USER CODE BEGIN WHILE */
 	while (1) {
 		/* USER CODE END WHILE */
+		//		printf("Hello World!!\r\n");
+		//		HAL_Delay(1000);
 		/* USER CODE BEGIN 3 */
 	}
 	/* USER CODE END 3 */

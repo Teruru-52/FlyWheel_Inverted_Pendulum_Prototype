@@ -75,12 +75,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 			if (count == 0) { // time interruption 100Hz
 				est_data = att.GetEstAttitude();
 				led_count = (led_count + 1) % 100;
-				if (led_count == 0) {
-					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET);
-					printf("%f \r\n", est_data[0]);
-				} else {
-					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET);
-				}
+			}
+			if (led_count == 0) {
+				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET);
+				printf("%f \r\n", est_data[0]);
+			} else {
+				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET);
 			}
 		}
 	}
@@ -128,6 +128,8 @@ int main(void) {
 	/* USER CODE BEGIN WHILE */
 	while (1) {
 		/* USER CODE END WHILE */
+		//		printf("Hello World!!\r\n");
+		//		HAL_Delay(1000);
 		/* USER CODE BEGIN 3 */
 	}
 	/* USER CODE END 3 */
